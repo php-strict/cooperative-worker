@@ -1,0 +1,23 @@
+{
+    "name": "php-strict/cooperative-worker",
+    "type": "library",
+    "description": ".",
+    "keywords": ["php","cooperative","worker","cooperative worker"],
+    "homepage": "https://github.com/php-strict/cooperative-worker",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Enikeishik",
+            "email": "enikeishik@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhpStrict\\CooperativeWorker\\": "src/",
+        }
+    }
+}
