@@ -31,7 +31,7 @@ $cw = new CooperativeWorker(
         return ['job 1', 'job 2', 'job 3', 'job 4', 'job 5'];
     }, 
     function(string $job) {
-        echo 'Strart job: ' $job . PHP_EOL;
+        echo 'Strart job: ' . $job . PHP_EOL;
         //do some job
     }
 );
