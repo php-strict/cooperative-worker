@@ -42,15 +42,15 @@ class CooperativeWorker
      */
     public function __construct(callable $jobsCreator, callable $jobsRunner, ?string $jobsStorage = null)
     {
+        if (null !== $jobsStorage) {
+            $this->jobsStorage = $jobsStorage;
+        }
+        
         if (!$this->jobsExists()) {
             $this->createJobs($jobsCreator());
         }
         
         $this->jobsRunner = $jobsRunner;
-        
-        if (null !== $jobsStorage) {
-            $this->jobsStorage = $jobsStorage;
-        }
     }
     
     /**
