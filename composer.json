@@ -1,7 +1,7 @@
 {
     "name": "php-strict/cooperative-worker",
     "type": "library",
-    "description": ".",
+    "description": "Class for executing jobs from one list in several processes",
     "keywords": ["php","cooperative","worker","cooperative worker"],
     "homepage": "https://github.com/php-strict/cooperative-worker",
     "license": "GPL-2.0-or-later",
