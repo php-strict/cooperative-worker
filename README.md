@@ -45,4 +45,32 @@ start php -f cw.php
 start php -f cw.php
 ```
 
+Processing images
+
+cw.php
+
+```php
+use PhpStrict\CooperativeWorker\CooperativeWorker
+
+$cw = new CooperativeWorker(
+    //returns array of images (with path to it) from dir
+    function() {
+        $images = glob('/path_to_images/*.jpg');
+        array_walk(
+            $images, 
+            function(&$val, $key, $path) {
+                $val = $path . '/' . $val;
+            }, 
+            '/path_to_images'
+        );
+        return $images;
+    }, 
+    function(string $image) {
+        echo 'Processing image: ' . $image . PHP_EOL;
+        //do some image operation (resizing, cropping, etc.)
+    }
+);
+$cw->run();
+```
+
 [ico-license]: https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat-square
