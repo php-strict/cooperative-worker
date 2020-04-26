@@ -26,4 +26,43 @@ class CooperativeWorkerConstructTest extends \Codeception\Test\Unit
         
         $this->assertEquals('/path-to-jobs-storage/jobs-storage.txt', $cw->getJobsStorage());
     }
+    
+    public function testCreateJobs()
+    {
+        ob_start();
+        $cw = 
+            new class(
+                function() {
+                    return ['job1', 'job2'];
+                },
+                function(string $job) {
+                },
+                '/path-to-jobs-storage/jobs-storage.txt'
+            ) extends CooperativeWorker {
+                protected function createJobs(array $jobs): void
+                {
+                    echo $this->jobsStorage;
+                }
+            };
+        $createdStorage = ob_get_clean();
+        $this->assertEquals('/path-to-jobs-storage/jobs-storage.txt', $createdStorage);
+        
+        ob_start();
+        $cw = 
+            new class(
+                function() {
+                    return ['job1', 'job2'];
+                },
+                function(string $job) {
+                },
+                '/path-to-jobs-storage/jobs-storage.txt'
+            ) extends CooperativeWorker {
+                protected function createJobs(array $jobs): void
+                {
+                    echo implode(',', $jobs);
+                }
+            };
+        $createdJobs = ob_get_clean();
+        $this->assertEquals('job1,job2', $createdJobs);
+    }
 }
