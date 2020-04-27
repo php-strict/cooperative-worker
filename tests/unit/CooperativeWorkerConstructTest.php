@@ -65,4 +65,36 @@ class CooperativeWorkerConstructTest extends \Codeception\Test\Unit
         $createdJobs = ob_get_clean();
         $this->assertEquals('job1,job2', $createdJobs);
     }
+    
+    public function testCreateJobsRunner()
+    {
+        $jobsRunner = function(string $job) {
+            echo $job . '[' . strlen($job) . ']';
+        };
+        
+        $cw = 
+            new class(
+                function() {
+                    return [];
+                },
+                $jobsRunner
+            ) extends CooperativeWorker {
+                protected function createJobs(array $jobs): void
+                {
+                    //do nothing
+                }
+                public function getJobsRunner()//: object PHP 7.2
+                {
+                    return $this->jobsRunner;
+                }
+            };
+        
+        $this->assertSame($jobsRunner, $cw->getJobsRunner());
+        
+        ob_start();
+        ($cw->getJobsRunner())('job1');
+        $jobsRunnerResult = ob_get_clean();
+        
+        $this->assertEquals('job1[4]', $jobsRunnerResult);
+    }
 }
