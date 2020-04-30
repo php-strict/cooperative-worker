@@ -39,6 +39,11 @@ class ScriptRunner
     /**
      * @var int
      */
+    protected const PROCESSES_POLLING_INTERVAL = 1000;
+    
+    /**
+     * @var int
+     */
     protected $procCount = 0;
     
     /**
@@ -77,7 +82,9 @@ class ScriptRunner
     {
         for ($i = 0; $i < $this->procCount; $i++) {
             echo 'Run script #' . $i . '... ';
-            $this->procHandles[] = [$i, popen(sprintf(self::PROCESS_COMMAND, $this->runScript), 'r')];
+            $handle = popen(sprintf(self::PROCESS_COMMAND, $this->runScript), 'r');
+            $this->procHandles[] = [$i, $handle];
+            stream_set_blocking($handle, false); //not work on Windows
             echo 'OK' . PHP_EOL;
         }
         
@@ -100,6 +107,9 @@ class ScriptRunner
                     break;
                 }
             }
+            
+            usleep(self::PROCESSES_POLLING_INTERVAL);
+            
         } while (0 < count($this->procHandles));
     }
     
