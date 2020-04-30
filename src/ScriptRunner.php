@@ -12,24 +12,49 @@ declare(strict_types=1);
 namespace PhpStrict\CooperativeWorker;
 
 /**
- * Class for starting separate processes with CooperativeWorker instances.
+ * Class for running separate processes of PHP CLI scripts with CooperativeWorker instances.
  */
 class ScriptRunner
 {
-    protected const CPU_CORES_COUNT_DEFAULT = 2;
+    /**
+     * @var int
+     */
+    protected const PROCESSES_COUNT_DEFAULT = 2;
     
+    /**
+     * @var int
+     */
     protected const PROCESSES_COUNT_LIMIT = 128;
     
+    /**
+     * @var string
+     */
     protected const PROCESS_COMMAND = 'php -f %s';
     
+    /**
+     * @var int
+     */
     protected const PROCESS_READ_LENGTH = 256;
     
+    /**
+     * @var int
+     */
     protected $procCount = 0;
     
+    /**
+     * @var array
+     */
     protected $procHandles = [];
     
+    /**
+     * @var string
+     */
     protected $runScript = '';
     
+    /**
+     * @param string $runScript     path to script to run
+     * @param int $procCount = 0    count of running processes
+     */
     public function __construct(string $runScript, int $procCount = 0)
     {
         $this->procCount = $procCount;
@@ -44,6 +69,10 @@ class ScriptRunner
         $this->runScript = $runScript;
     }
     
+    /**
+     * @param bool $silent = false  disable output from running scripts
+     * @return void
+     */
     public function run(bool $silent = false): void
     {
         for ($i = 0; $i < $this->procCount; $i++) {
@@ -74,13 +103,19 @@ class ScriptRunner
         } while (0 < count($this->procHandles));
     }
     
+    /**
+     * @return void
+     */
     protected function limitProcCount(): void
     {
         if (0 >= $this->procCount || self::PROCESSES_COUNT_LIMIT < $this->procCount) {
-            $this->procCount = self::CPU_CORES_COUNT_DEFAULT;
+            $this->procCount = self::PROCESSES_COUNT_DEFAULT;
         }
     }
     
+    /**
+     * @return int
+     */
     protected function getSystemCpuCoresCount(): int
     {
         if (PHP_OS_FAMILY == 'Windows') {
