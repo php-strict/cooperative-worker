@@ -108,11 +108,11 @@ class CooperativeWorker
     {
         $this->jobsFilePointer = fopen($this->jobsStorage, 'w');
         if ($this->jobsFilePointer === false) {
-            throw new Exception('Error creating jobs');
+            throw new \Exception('Error creating jobs');
         }
         
         if (!flock($this->jobsFilePointer, LOCK_EX)) {
-            throw new Exception('Error locking jobs');
+            throw new \Exception('Error locking jobs');
         }
         
         $this->saveJobs($jobs);
@@ -126,16 +126,16 @@ class CooperativeWorker
     {
         $this->jobsFilePointer = fopen($this->jobsStorage, 'r+');
         if ($this->jobsFilePointer === false) {
-            throw new Exception('Error opening jobs');
+            throw new \Exception('Error opening jobs');
         }
         
         if (!flock($this->jobsFilePointer, LOCK_EX)) {
-            throw new Exception('Error locking jobs');
+            throw new \Exception('Error locking jobs');
         }
         
         $data = fread($this->jobsFilePointer, filesize($this->jobsStorage));
         if ($this->jobsFilePointer === false) {
-            throw new Exception('Error reading jobs');
+            throw new \Exception('Error reading jobs');
         }
         
         return explode(PHP_EOL, $data);

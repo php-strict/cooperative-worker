@@ -64,7 +64,7 @@ class ScriptRunner
         $this->limitProcCount();
         
         if (!file_exists($runScript)) {
-            throw Exception('Run script not exists');
+            throw new \Exception('Run script not exists');
         }
         $this->runScript = $runScript;
     }
