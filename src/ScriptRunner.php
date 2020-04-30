@@ -77,21 +77,21 @@ class ScriptRunner
     {
         for ($i = 0; $i < $this->procCount; $i++) {
             echo 'Run script #' . $i . '... ';
-            $this->procHandles[] = popen(sprintf(self::PROCESS_COMMAND, $this->runScript), 'r');
+            $this->procHandles[] = [$i, popen(sprintf(self::PROCESS_COMMAND, $this->runScript), 'r')];
             echo 'OK' . PHP_EOL;
         }
         
         do {
             for ($i = 0, $cnt = count($this->procHandles); $i < $cnt; $i++) {
-                $out = fread($this->procHandles[$i], self::PROCESS_READ_LENGTH);
+                $out = fread($this->procHandles[$i][1], self::PROCESS_READ_LENGTH);
                 
                 if (!$silent) {
                     echo $out;
                 }
                 
-                if (feof($this->procHandles[$i])) {
-                    echo 'Close script #' . $i . '... ';
-                    pclose($this->procHandles[$i]);
+                if (feof($this->procHandles[$i][1])) {
+                    echo 'Close script #' . $this->procHandles[$i][0] . '... ';
+                    pclose($this->procHandles[$i][1]);
                     echo 'OK' . PHP_EOL;
                     
                     unset($this->procHandles[$i]);
