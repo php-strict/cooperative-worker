@@ -59,11 +59,18 @@ $cw = new CooperativeWorker(
 $cw->run();
 ```
 
-cw.bat (on Windows using start command to create a two separate processes)
+cw.bat (on Windows using `start` command to create a two separate processes)
 
 ```bat
 start php -f cw.php
 start php -f cw.php
+```
+
+cw.sh (on Linux using `&` at the end of command to create a two separate processes)
+
+```sh
+php -f cw.php &
+php -f cw.php &
 ```
 
 Processing images
@@ -71,7 +78,7 @@ Processing images
 cw.php
 
 ```php
-use PhpStrict\CooperativeWorker\CooperativeWorker
+use PhpStrict\CooperativeWorker\CooperativeWorker;
 
 $cw = new CooperativeWorker(
     //returns array of images (with path to it) from dir
@@ -92,6 +99,14 @@ $cw = new CooperativeWorker(
     }
 );
 $cw->run();
+```
+
+## Tests
+
+To execute the test suite, you'll need [Codeception](https://codeception.com/).
+
+```bash
+vendor/bin/codecept run
 ```
 
 [ico-license]: https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat-square

@@ -13,7 +13,10 @@ namespace PhpStrict\CooperativeWorker;
 
 /**
  * Class for executing jobs from one list in several processes.
- * Class not have mechanism to create processes, consumer must create it by self.
+ * Class not have mechanism to create processes, consumer must create it by self (see readme): 
+ * - start command on Windows systems; 
+ * - & at the end of command on Linux systems; 
+ * - also may be used https://github.com/php-strict/script-runner.
  * Each separate process can create instance of class wich will work with shared storage without collisions.
  * Temporary storage of jobs will be created in first instance of class and it be use all of instances.
  */
