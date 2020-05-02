@@ -73,6 +73,16 @@ php -f cw.php &
 php -f cw.php &
 ```
 
+using [ScriptRunner](https://github.com/php-strict/script-runner)
+
+```php
+use PhpStrict\ScriptRunner\ScriptRunner;
+
+//path_to_script, processes count (if omitted then system CPU cores count will be used) 
+$sr = new ScriptRunner('cw.php', 4);
+$sr->run();
+```
+
 Processing images
 
 cw.php
