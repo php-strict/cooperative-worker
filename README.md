@@ -5,7 +5,7 @@
 Class for executing jobs from one list in several processes.
 Class not have mechanism to create processes, consumer must create it by self.
 Each separate process can create instance of class wich will work with shared storage without collisions.
-Temporary storage of jobs will be created in first instance of class and it be use all of instances.
+Temporary storage of jobs (queue) will be created in first instance of class and it be use all of instances.
 
 ## Requirements
 
@@ -83,7 +83,7 @@ $sr = new ScriptRunner('cw.php', 4);
 $sr->run();
 ```
 
-Processing images
+Processing images (log files, data files, etc.)
 
 cw.php
 
