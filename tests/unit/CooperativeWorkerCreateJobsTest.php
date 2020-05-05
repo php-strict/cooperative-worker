@@ -52,20 +52,26 @@ class CooperativeWorkerCreateJobsTest extends \Codeception\Test\Unit
             };
     }
     
-    public function testJobsNotExists()
+    public function testFailCreating()
     {
         $this->expectedExceptionContains(
             'Error creating jobs', 
             [$this, 'createJobsWithStorage'], 
             '/not-existence-dir/test-jobs.txt'
         );
-        
+    }
+    
+    public function testFailLocking()
+    {
         $this->expectedExceptionContains(
             'Error locking jobs', 
             [$this, 'createJobsWithStorage'], 
             'php://memory'
         );
-        
+    }
+    
+    public function testCreated()
+    {
         $this->assertTrue($this->expectedNotException(
             [$this, 'createJobsWithStorage'], 
             '/tmp/test-jobs.txt'
