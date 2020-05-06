@@ -127,7 +127,7 @@ class CooperativeWorker
      */
     protected function getJobs(): array
     {
-        $this->jobsFilePointer = fopen($this->jobsStorage, 'r+');
+        $this->jobsFilePointer = @fopen($this->jobsStorage, 'r+'); //use try..catch instead of @ to hide warning?
         if ($this->jobsFilePointer === false) {
             throw new \Exception('Error opening jobs');
         }
