@@ -174,6 +174,6 @@ class CooperativeWorker
         ftruncate($this->jobsFilePointer, 0);
         flock($this->jobsFilePointer, LOCK_UN);
         fclose($this->jobsFilePointer);
-        unlink($this->jobsStorage);
+        @unlink($this->jobsStorage);
     }
 }
