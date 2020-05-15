@@ -137,7 +137,7 @@ class CooperativeWorker
         }
         
         $data = fread($this->jobsFilePointer, filesize($this->jobsStorage));
-        if ($this->jobsFilePointer === false) {
+        if ($data === false) {
             throw new \Exception('Error reading jobs');
         }
         
