@@ -136,7 +136,12 @@ class CooperativeWorker
             throw new \Exception('Error locking jobs');
         }
         
-        $data = fread($this->jobsFilePointer, filesize($this->jobsStorage));
+        $fsize = filesize($this->jobsStorage);
+        if (0 == $fsize) {
+            return [];
+        }
+        
+        $data = fread($this->jobsFilePointer, $fsize);
         if ($data === false) {
             throw new \Exception('Error reading jobs');
         }
