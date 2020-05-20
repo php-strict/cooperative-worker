@@ -91,6 +91,16 @@ class CooperativeWorkerGetJobsTest extends \Codeception\Test\Unit
         );
     }
     
+    public function testZeroSizeStorage()
+    {
+        $cw = $this->createJobsWithStorage('/tmp/test-jobs.txt');
+        file_put_contents('/tmp/test-jobs.txt', '');
+        $cw->initFilePointer();
+        $this->assertTrue($this->expectedNotException(
+            [$cw, 'getJobs']
+        ));
+    }
+    
     //how to successfully open and lock file, but fail to read it?
     // public function testFailReading()
     // {
