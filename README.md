@@ -3,6 +3,7 @@
 [![Software License][ico-license]](LICENSE.txt)
 [![Build Status][ico-travis]][link-travis]
 [![codecov][ico-codecov]][link-codecov]
+[![Codacy Badge][ico-codacy]][link-codacy]
 
 Class for executing jobs from one list in several processes.
 Class not have mechanism to create processes, consumer must create it by self.
@@ -126,3 +127,5 @@ vendor/bin/codecept run
 [link-travis]: https://travis-ci.org/php-strict/cooperative-worker
 [ico-codecov]: https://codecov.io/gh/php-strict/cooperative-worker/branch/master/graph/badge.svg
 [link-codecov]: https://codecov.io/gh/php-strict/cooperative-worker
+[ico-codacy]: https://app.codacy.com/project/badge/Grade/af51d7f320384404a0dfefb2511cbf42
+[link-codacy]: https://www.codacy.com/gh/php-strict/cooperative-worker?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=php-strict/cooperative-worker&amp;utm_campaign=Badge_Grade
